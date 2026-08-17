@@ -3,17 +3,14 @@ using AcademiaDoZe.Domain.Common;
 
 namespace AcademiaDoZe.Domain.Entities;
 
-public class AcessoColaborador : Entity
+public class AcessoColaborador : Entity, IAggregateRoot
 {
-    public Colaborador Colaborador { get; private set; }
+    public int ColaboradorId { get; private set; }
     public DateTime DataHora { get; private set; }
 
-    private AcessoColaborador(
-        int id,
-        Colaborador colaborador,
-        DateTime dataHora) : base(id)
+    private AcessoColaborador(int id, int colaboradorId, DateTime dataHora) : base(id)
     {
-        Colaborador = colaborador;
+        ColaboradorId = colaboradorId;
         DataHora = dataHora;
     }
 
@@ -25,17 +22,18 @@ public class AcessoColaborador : Entity
         var notifications = new List<Notification>();
 
         if (colaborador is null)
-            notifications.Add(new Notification("Colaborador", "COLABORADOR_OBRIGATORIO"));
+            notifications.Add(new Notification("Colaborador", "COLABORADOR_INVALIDO"));
 
-        if (dataHora == default)
-            notifications.Add(new Notification("DataHora", "DATA_HORA_OBRIGATORIA"));
-        else if (dataHora > DateTime.Now)
-            notifications.Add(new Notification("DataHora", "DATA_HORA_FUTURA_INVALIDA"));
+        if (dataHora.TimeOfDay < new TimeSpan(6, 0, 0) ||
+            dataHora.TimeOfDay > new TimeSpan(22, 0, 0))
+        {
+            notifications.Add(new Notification("DataHora", "DATA_HORA_INTERVALO_INVALIDO"));
+        }
 
         if (notifications.Count != 0)
             return Result<AcessoColaborador>.Failure(notifications);
 
         return Result<AcessoColaborador>.Success(
-            new AcessoColaborador(id, colaborador!, dataHora));
+            new AcessoColaborador(id, colaborador!.Id, dataHora));
     }
 }

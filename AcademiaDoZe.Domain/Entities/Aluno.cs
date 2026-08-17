@@ -5,7 +5,7 @@ using AcademiaDoZe.Domain.ValueObjects;
 
 namespace AcademiaDoZe.Domain.Entities;
 
-public class Aluno : Pessoa
+public class Aluno : Pessoa, IAggregateRoot
 {
     private Aluno(
         int id,
@@ -16,7 +16,7 @@ public class Aluno : Pessoa
         Email email,
         Endereco endereco,
         Senha senha,
-        Arquivo? foto)
+        Arquivo foto)
         : base(id, nome, cpf, dataNascimento, telefone, email, endereco, senha, foto)
     {
     }
@@ -32,14 +32,14 @@ public class Aluno : Pessoa
         string? numero,
         string? complemento,
         string? senha,
-        Arquivo? foto)
+        Arquivo foto)
     {
         var notifications = new List<Notification>();
 
-        if (NormalizadoService.TextoVazioOuNulo(nome))
+        if (NormalizacaoService.TextoVazioOuNulo(nome))
             notifications.Add(new Notification("Nome", "NOME_OBRIGATORIO"));
         else
-            nome = NormalizadoService.LimparEspacos(nome);
+            nome = NormalizacaoService.LimparEspacos(nome);
 
         ValidarDataNascimento(dataNascimento, notifications);
 
@@ -85,7 +85,7 @@ public class Aluno : Pessoa
         if (dataNascimento == default)
             notifications.Add(new Notification(
                 "DataNascimento",
-                "DATA_NASCIMENTO_OBRIGATORIA"));
+                "DATA_NASCIMENTO_OBRIGATORIO"));
         else if (dataNascimento > DateOnly.FromDateTime(DateTime.Today.AddYears(-12)))
             notifications.Add(new Notification(
                 "DataNascimento",

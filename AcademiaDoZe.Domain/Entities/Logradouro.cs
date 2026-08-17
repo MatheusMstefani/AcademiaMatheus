@@ -5,7 +5,7 @@ using AcademiaDoZe.Domain.ValueObjects;
 
 namespace AcademiaDoZe.Domain.Entities;
 
-public sealed class Logradouro : Entity
+public sealed class Logradouro : Entity, IAggregateRoot
 {
     public Cep Cep { get; }
     public string Nome { get; }
@@ -48,13 +48,13 @@ public sealed class Logradouro : Entity
 
         ValidarTexto(nome, "Nome", "NOME_OBRIGATORIO", notifications, out nome);
         ValidarTexto(bairro, "Bairro", "BAIRRO_OBRIGATORIO", notifications, out bairro);
-        ValidarTexto(cidade, "Cidade", "CIDADE_OBRIGATORIA", notifications, out cidade);
+        ValidarTexto(cidade, "Cidade", "CIDADE_OBRIGATORIO", notifications, out cidade);
 
-        if (NormalizadoService.TextoVazioOuNulo(estado))
+        if (NormalizacaoService.TextoVazioOuNulo(estado))
             notifications.Add(new Notification("Estado", "ESTADO_OBRIGATORIO"));
         else
-            estado = NormalizadoService.ParaMaiusculo(
-                NormalizadoService.LimparTodosEspacos(estado));
+            estado = NormalizacaoService.ParaMaiusculo(
+                NormalizacaoService.LimparTodosEspacos(estado));
 
         ValidarTexto(pais, "Pais", "PAIS_OBRIGATORIO", notifications, out pais);
 
@@ -72,13 +72,13 @@ public sealed class Logradouro : Entity
         ICollection<Notification> notifications,
         out string? valorNormalizado)
     {
-        if (NormalizadoService.TextoVazioOuNulo(valor))
+        if (NormalizacaoService.TextoVazioOuNulo(valor))
         {
             notifications.Add(new Notification(propriedade, mensagem));
             valorNormalizado = valor;
             return;
         }
 
-        valorNormalizado = NormalizadoService.LimparEspacos(valor);
+        valorNormalizado = NormalizacaoService.LimparEspacos(valor);
     }
 }

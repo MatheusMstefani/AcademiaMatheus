@@ -12,7 +12,7 @@ public abstract class Pessoa : Entity
     public Email Email { get; protected set; }
     public Endereco Endereco { get; protected set; }
     public Senha Senha { get; protected set; }
-    public Arquivo? Foto { get; protected set; }
+    public Arquivo Foto { get; protected set; }
 
     protected Pessoa(
         int id,
@@ -23,7 +23,7 @@ public abstract class Pessoa : Entity
         Email email,
         Endereco endereco,
         Senha senha,
-        Arquivo? foto) : base(id)
+        Arquivo foto) : base(id)
     {
         Nome = nome;
         Cpf = cpf;

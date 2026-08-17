@@ -6,9 +6,9 @@ using AcademiaDoZe.Domain.ValueObjects;
 
 namespace AcademiaDoZe.Domain.Entities;
 
-public class Matricula : Entity
+public class Matricula : Entity, IAggregateRoot
 {
-    public Aluno AlunoMatricula { get; private set; }
+    public int AlunoId { get; private set; }
     public MatriculaPlano Plano { get; private set; }
     public DateOnly DataInicio { get; private set; }
     public DateOnly DataFim { get; private set; }
@@ -19,7 +19,7 @@ public class Matricula : Entity
 
     private Matricula(
         int id,
-        Aluno alunoMatricula,
+        int alunoId,
         MatriculaPlano plano,
         DateOnly dataInicio,
         DateOnly dataFim,
@@ -28,7 +28,7 @@ public class Matricula : Entity
         Arquivo? laudoMedico,
         string observacoesRestricoes) : base(id)
     {
-        AlunoMatricula = alunoMatricula;
+        AlunoId = alunoId;
         Plano = plano;
         DataInicio = dataInicio;
         DataFim = dataFim;
@@ -40,10 +40,9 @@ public class Matricula : Entity
 
     public static Result<Matricula> Criar(
         int id,
-        Aluno? alunoMatricula,
+        Aluno? aluno,
         MatriculaPlano plano,
         DateOnly dataInicio,
-        DateOnly dataFim,
         string? objetivo,
         MatriculaRestricoes restricoesMedicas,
         Arquivo? laudoMedico,
@@ -51,24 +50,24 @@ public class Matricula : Entity
     {
         var notifications = new List<Notification>();
 
-        if (alunoMatricula is null)
-            notifications.Add(new Notification("AlunoMatricula", "ALUNO_OBRIGATORIO"));
+        if (aluno is null)
+            notifications.Add(new Notification("Aluno", "ALUNO_INVALIDO"));
+        else if (aluno.DataNascimento > DateOnly.FromDateTime(DateTime.Today.AddYears(-16)) &&
+                 laudoMedico is null)
+            notifications.Add(new Notification("LaudoMedico", "MENOR_16_LAUDO_OBRIGATORIO"));
 
         if (!Enum.IsDefined(plano))
             notifications.Add(new Notification("Plano", "PLANO_INVALIDO"));
 
         if (dataInicio == default)
-            notifications.Add(new Notification("DataInicio", "DATA_INICIO_OBRIGATORIA"));
+            notifications.Add(new Notification("DataInicio", "DATA_INICIO_OBRIGATORIO"));
 
-        if (dataFim == default)
-            notifications.Add(new Notification("DataFim", "DATA_FIM_OBRIGATORIA"));
-        else if (dataInicio != default && dataFim <= dataInicio)
-            notifications.Add(new Notification("DataFim", "DATA_FIM_INVALIDA"));
+        var dataFim = CalcularDataFim(plano, dataInicio);
 
-        if (NormalizadoService.TextoVazioOuNulo(objetivo))
+        if (NormalizacaoService.TextoVazioOuNulo(objetivo))
             notifications.Add(new Notification("Objetivo", "OBJETIVO_OBRIGATORIO"));
         else
-            objetivo = NormalizadoService.LimparEspacos(objetivo);
+            objetivo = NormalizacaoService.LimparEspacos(objetivo);
 
         const MatriculaRestricoes restricoesValidas =
             MatriculaRestricoes.Diabetes |
@@ -81,22 +80,17 @@ public class Matricula : Entity
         if ((restricoesMedicas & ~restricoesValidas) != 0)
             notifications.Add(new Notification("RestricoesMedicas", "RESTRICOES_INVALIDAS"));
 
-        observacoesRestricoes = NormalizadoService.LimparEspacos(observacoesRestricoes);
+        if (restricoesMedicas != MatriculaRestricoes.None && laudoMedico is null)
+            notifications.Add(new Notification("LaudoMedico", "RESTRICOES_LAUDO_OBRIGATORIO"));
 
-        var exigeLaudoPorIdade = alunoMatricula is not null &&
-            dataInicio != default &&
-            CalcularIdade(alunoMatricula.DataNascimento, dataInicio) is >= 12 and <= 16;
-
-        var possuiRestricao = restricoesMedicas != MatriculaRestricoes.Nenhuma;
-        if ((exigeLaudoPorIdade || possuiRestricao) && laudoMedico is null)
-            notifications.Add(new Notification("LaudoMedico", "LAUDO_MEDICO_OBRIGATORIO"));
+        observacoesRestricoes = NormalizacaoService.LimparEspacos(observacoesRestricoes);
 
         if (notifications.Count != 0)
             return Result<Matricula>.Failure(notifications);
 
         return Result<Matricula>.Success(new Matricula(
             id,
-            alunoMatricula!,
+            aluno!.Id,
             plano,
             dataInicio,
             dataFim,
@@ -106,12 +100,13 @@ public class Matricula : Entity
             observacoesRestricoes));
     }
 
-    private static int CalcularIdade(DateOnly nascimento, DateOnly referencia)
-    {
-        var idade = referencia.Year - nascimento.Year;
-        if (nascimento > referencia.AddYears(-idade))
-            idade--;
-
-        return idade;
-    }
+    private static DateOnly CalcularDataFim(MatriculaPlano plano, DateOnly dataInicio) =>
+        plano switch
+        {
+            MatriculaPlano.Mensal => dataInicio.AddMonths(1),
+            MatriculaPlano.Trimestral => dataInicio.AddMonths(3),
+            MatriculaPlano.Semestral => dataInicio.AddMonths(6),
+            MatriculaPlano.Anual => dataInicio.AddMonths(12),
+            _ => default
+        };
 }

@@ -15,10 +15,13 @@ public sealed record Cpf
 
     public static Result<Cpf> Criar(string? valor)
     {
-        if (NormalizadoService.TextoVazioOuNulo(valor))
+        if (NormalizacaoService.TextoVazioOuNulo(valor))
             return Result<Cpf>.Failure("Cpf", "CPF_OBRIGATORIO");
 
-        var textoLimpo = NormalizadoService.LimparEDigitos(valor);
+        var textoLimpo = NormalizacaoService.LimparEDigitos(valor);
+        if (textoLimpo.Length != 11)
+            return Result<Cpf>.Failure("Cpf", "CPF_DIGITOS");
+
         if (!Validar(textoLimpo))
             return Result<Cpf>.Failure("Cpf", "CPF_INVALIDO");
 

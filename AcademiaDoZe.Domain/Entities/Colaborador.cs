@@ -6,7 +6,7 @@ using AcademiaDoZe.Domain.ValueObjects;
 
 namespace AcademiaDoZe.Domain.Entities;
 
-public class Colaborador : Pessoa
+public class Colaborador : Pessoa, IAggregateRoot
 {
     public DateOnly DataAdmissao { get; private set; }
     public ColaboradorTipo Tipo { get; private set; }
@@ -21,7 +21,7 @@ public class Colaborador : Pessoa
         Email email,
         Endereco endereco,
         Senha senha,
-        Arquivo? foto,
+        Arquivo foto,
         DateOnly dataAdmissao,
         ColaboradorTipo tipo,
         ColaboradorVinculo vinculo)
@@ -43,31 +43,31 @@ public class Colaborador : Pessoa
         string? numero,
         string? complemento,
         string? senha,
-        Arquivo? foto,
+        Arquivo foto,
         DateOnly dataAdmissao,
         ColaboradorTipo tipo,
         ColaboradorVinculo vinculo)
     {
         var notifications = new List<Notification>();
 
-        if (NormalizadoService.TextoVazioOuNulo(nome))
+        if (NormalizacaoService.TextoVazioOuNulo(nome))
             notifications.Add(new Notification("Nome", "NOME_OBRIGATORIO"));
         else
-            nome = NormalizadoService.LimparEspacos(nome);
+            nome = NormalizacaoService.LimparEspacos(nome);
 
         if (dataNascimento == default)
             notifications.Add(new Notification(
                 "DataNascimento",
-                "DATA_NASCIMENTO_OBRIGATORIA"));
+                "DATA_NASCIMENTO_OBRIGATORIO"));
         else if (dataNascimento > DateOnly.FromDateTime(DateTime.Today.AddYears(-12)))
             notifications.Add(new Notification(
                 "DataNascimento",
                 "DATA_NASCIMENTO_MINIMA_INVALIDA"));
 
         if (dataAdmissao == default)
-            notifications.Add(new Notification("DataAdmissao", "DATA_ADMISSAO_OBRIGATORIA"));
+            notifications.Add(new Notification("DataAdmissao", "DATA_ADMISSAO_OBRIGATORIO"));
         else if (dataAdmissao > DateOnly.FromDateTime(DateTime.Today))
-            notifications.Add(new Notification("DataAdmissao", "DATA_ADMISSAO_MAIOR_ATUAL"));
+            notifications.Add(new Notification("DataAdmissao", "DATA_ADMISSAO_MAIOR_QUE_ATUAL"));
 
         if (!Enum.IsDefined(tipo))
             notifications.Add(new Notification("Tipo", "TIPO_COLABORADOR_INVALIDO"));

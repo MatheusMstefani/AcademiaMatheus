@@ -3,17 +3,14 @@ using AcademiaDoZe.Domain.Common;
 
 namespace AcademiaDoZe.Domain.Entities;
 
-public class AcessoAluno : Entity
+public class AcessoAluno : Entity, IAggregateRoot
 {
-    public Aluno Aluno { get; private set; }
+    public int AlunoId { get; private set; }
     public DateTime DataHora { get; private set; }
 
-    private AcessoAluno(
-        int id,
-        Aluno aluno,
-        DateTime dataHora) : base(id)
+    private AcessoAluno(int id, int alunoId, DateTime dataHora) : base(id)
     {
-        Aluno = aluno;
+        AlunoId = alunoId;
         DataHora = dataHora;
     }
 
@@ -22,16 +19,17 @@ public class AcessoAluno : Entity
         var notifications = new List<Notification>();
 
         if (aluno is null)
-            notifications.Add(new Notification("Aluno", "ALUNO_OBRIGATORIO"));
+            notifications.Add(new Notification("Aluno", "ALUNO_INVALIDO"));
 
-        if (dataHora == default)
-            notifications.Add(new Notification("DataHora", "DATA_HORA_OBRIGATORIA"));
-        else if (dataHora > DateTime.Now)
-            notifications.Add(new Notification("DataHora", "DATA_HORA_FUTURA_INVALIDA"));
+        if (dataHora.TimeOfDay < new TimeSpan(6, 0, 0) ||
+            dataHora.TimeOfDay > new TimeSpan(22, 0, 0))
+        {
+            notifications.Add(new Notification("DataHora", "DATA_HORA_INTERVALO_INVALIDO"));
+        }
 
         if (notifications.Count != 0)
             return Result<AcessoAluno>.Failure(notifications);
 
-        return Result<AcessoAluno>.Success(new AcessoAluno(id, aluno!, dataHora));
+        return Result<AcessoAluno>.Success(new AcessoAluno(id, aluno!.Id, dataHora));
     }
 }

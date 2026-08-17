@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace AcademiaDoZe.Domain.Services;
 
-public static partial class NormalizadoService
+public static partial class NormalizacaoService
 {
     public static bool TextoVazioOuNulo(string? texto) =>
         string.IsNullOrWhiteSpace(texto);
