@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "DEV05 - Testes de Logradouro",
+      "type": "process", "command": "dotnet",
+      "args": ["test", "AcademiaDoZe.Infrastructure.Tests", "--filter", "FullyQualifiedName~LogradouroInfrastructureTests", "--verbosity", "normal"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "DEV06 - Testes de Aluno",
+      "type": "process", "command": "dotnet",
+      "args": ["test", "AcademiaDoZe.Infrastructure.Tests", "--filter", "FullyQualifiedName~AlunoInfrastructureTests", "--verbosity", "normal"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "DEV06 - Testes de Colaborador",
+      "type": "process", "command": "dotnet",
+      "args": ["test", "AcademiaDoZe.Infrastructure.Tests", "--filter", "FullyQualifiedName~ColaboradorInfrastructureTests", "--verbosity", "normal"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "DEV07 - Testes de Matricula",
+      "type": "process", "command": "dotnet",
+      "args": ["test", "AcademiaDoZe.Infrastructure.Tests", "--filter", "FullyQualifiedName~MatriculaInfrastructureTests", "--verbosity", "normal"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": "$msCompile"
+    }
+  ]
+}

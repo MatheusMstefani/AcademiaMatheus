@@ -4,3 +4,6 @@
 *.user
 *.suo
 packages/
+Dados/
+TestResults/
+.env
