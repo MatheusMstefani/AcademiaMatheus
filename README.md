@@ -2,6 +2,29 @@
 
 Trabalho de Matheus Marques Stefani.
 
+## Continuacao dev08
+
+A camada `AcademiaDoZe.Application` implementa os servicos de Logradouro, Aluno,
+Colaborador e Matricula. Possui DTOs, enums para a interface, mapeamentos,
+contratos de servico, hash Argon2id e registro de injecao de dependencia.
+
+- 235 testes de dominio, 70 de infraestrutura e 45 da aplicacao: 350 no total.
+- Os novos testes usam arquivos SQLite temporarios isolados.
+- Cadastro e troca de senha pelos servicos guardam hash; as consultas nunca devolvem senha ou hash.
+- O suporte aos tres bancos continua na infraestrutura. A verificacao desta atividade foi feita com SQLite.
+- Os servicos de acesso ficam para a atividade futura indicada no PDF, nao fazem parte da DEV08.
+
+Para estudar a nova camada e entender como configurar os servicos, leia
+[o resumo da DEV08](docs/DEV08-estudo.md).
+
+```powershell
+dotnet test AcademiaDoZe.Application.Tests
+```
+
+Entrega DEV08: uma print com todos os diretorios da camada Application expandidos
+e o nome completo visivel, mais o ZIP de toda a solucao baixada do GitHub.
+O link do repositorio pode acompanhar, mas nao substitui o ZIP pedido no PDF.
+
 ## Continuacoes dev05, dev06 e dev07
 
 - dev05: infraestrutura ADO.NET, criacao automatica das tabelas e LogradouroRepository.
@@ -66,7 +89,9 @@ dotnet test AcademiaDoZe.Infrastructure.Tests
 - Aluno e colaborador: nome `Matheus`, complemento `Marques Stefani`, senha ficticia contendo o SGBD.
 - Matricula: objetivo `Matheus Marques Stefani`, obs_restricao com o SGBD.
 
-As senhas deste exercicio sao valores ficticios, persistidos conforme o exemplo de aula. Um sistema real precisaria usar hash de senha.
+Os testes antigos de infraestrutura usam senhas ficticias em texto conforme os exemplos das atividades anteriores.
+A partir da DEV08, os cadastros e trocas feitos pelos servicos da aplicacao usam Argon2id.
+Registros antigos nao sao convertidos automaticamente; trocar a senha pelo servico grava o hash.
 
 ## Prints e entrega
 

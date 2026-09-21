@@ -2,6 +2,12 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "DEV08 - Testes da Aplicacao",
+      "type": "process", "command": "dotnet",
+      "args": ["test", "AcademiaDoZe.Application.Tests", "--verbosity", "normal"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": "$msCompile"
+    },
+    {
       "label": "DEV05 - Testes de Logradouro",
       "type": "process", "command": "dotnet",
       "args": ["test", "AcademiaDoZe.Infrastructure.Tests", "--filter", "FullyQualifiedName~LogradouroInfrastructureTests", "--verbosity", "normal"],
