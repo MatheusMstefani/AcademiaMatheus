@@ -2,6 +2,38 @@
 
 Trabalho de Matheus Marques Stefani.
 
+## Continuações dev09 e dev10
+
+Aplicativo **Academia Matheus**, em .NET MAUI para Windows, com identidade visual
+própria e logo contendo o nome completo.
+
+- DEV09: painel com totais reais e CRUD de logradouros, filtros, busca local por CEP,
+  validações e confirmação de exclusão.
+- DEV10: tema claro/escuro/sistema, preferências persistentes, mensagens fracas,
+  troca de banco em execução, ícones e título personalizados.
+- A apresentação referencia somente Application; recebe e envia DTOs.
+- SQLite é o banco executado nesta entrega. MySQL e SQL Server têm configuração
+  e suporte no código, mas não foram validados com servidores nesta máquina.
+- Os botões Alunos, Colaboradores e Matrículas mostram totais e informam que as
+  respectivas telas de cadastro ficam para as próximas atividades.
+
+Requisitos: Windows 10 1809 ou superior, SDK .NET 10 e workload MAUI Windows:
+
+```powershell
+dotnet workload install maui-windows
+dotnet run --project AcademiaDoZe.Presentation.AppMaui -f net10.0-windows10.0.19041.0
+```
+
+No VS Code: **Terminal > Run Task > DEV09 e DEV10 - Abrir aplicativo**.
+O banco inicial do aplicativo é novo, em AppData; ele não é o banco dos testes
+anteriores. O caminho completo aparece em Configurações. Não há credenciais
+reais ou banco pessoal no repositório.
+
+Para gravar, siga [o roteiro de entrega](docs/DEV09-DEV10-entrega.md).
+Para entender o código, leia [o guia de estudo](docs/DEV09-DEV10-estudo.md).
+As atividades pedem vídeo real da execução e ZIP de uma release do GitHub;
+prints do painel não substituem esses itens.
+
 ## Continuacao dev08
 
 A camada `AcademiaDoZe.Application` implementa os servicos de Logradouro, Aluno,

@@ -2,6 +2,12 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "DEV09 e DEV10 - Abrir aplicativo",
+      "type": "process", "command": "dotnet",
+      "args": ["run", "--project", "AcademiaDoZe.Presentation.AppMaui", "-f", "net10.0-windows10.0.19041.0"],
+      "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": "$msCompile"
+    },
+    {
       "label": "DEV08 - Testes da Aplicacao",
       "type": "process", "command": "dotnet",
       "args": ["test", "AcademiaDoZe.Application.Tests", "--verbosity", "normal"],

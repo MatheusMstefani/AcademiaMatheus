@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="AcademiaDoZe.Presentation.AppMaui.App">
+ <Application.Resources>
+  <Style TargetType="ContentPage"><Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#F3F6F8, Dark=#10202E}"/></Style>
+  <Style TargetType="Label"><Setter Property="TextColor" Value="{AppThemeBinding Light=#183448, Dark=#EAF2F7}"/><Setter Property="FontSize" Value="16"/></Style>
+  <Style TargetType="Entry"><Setter Property="TextColor" Value="{AppThemeBinding Light=#183448, Dark=#EAF2F7}"/><Setter Property="BackgroundColor" Value="{AppThemeBinding Light=White, Dark=#203A4D}"/><Setter Property="PlaceholderColor" Value="{AppThemeBinding Light=#566979, Dark=#B3C5D1}"/></Style>
+  <Style TargetType="Picker"><Setter Property="TextColor" Value="{AppThemeBinding Light=#183448, Dark=#EAF2F7}"/><Setter Property="BackgroundColor" Value="{AppThemeBinding Light=White, Dark=#203A4D}"/></Style>
+  <Style TargetType="Button"><Setter Property="BackgroundColor" Value="#007E80"/><Setter Property="TextColor" Value="White"/><Setter Property="CornerRadius" Value="10"/><Setter Property="Padding" Value="16,12"/></Style>
+ </Application.Resources>
+</Application>

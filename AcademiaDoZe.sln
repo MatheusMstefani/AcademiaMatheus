@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Application", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Application.Tests", "AcademiaDoZe.Application.Tests\AcademiaDoZe.Application.Tests.csproj", "{9135BE1C-FE38-4FAD-B997-3B756133975C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Presentation.AppMaui", "AcademiaDoZe.Presentation.AppMaui\AcademiaDoZe.Presentation.AppMaui.csproj", "{CDDEB099-C8D0-4B94-812E-618D2ADE7920}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,18 @@ Global
 		{9135BE1C-FE38-4FAD-B997-3B756133975C}.Release|x64.Build.0 = Release|Any CPU
 		{9135BE1C-FE38-4FAD-B997-3B756133975C}.Release|x86.ActiveCfg = Release|Any CPU
 		{9135BE1C-FE38-4FAD-B997-3B756133975C}.Release|x86.Build.0 = Release|Any CPU
+		{CDDEB099-C8D0-4B94-812E-618D2ADE7920}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDDEB099-C8D0-4B94-812E-618D2ADE7920}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDDEB099-C8D0-4B94-812E-618D2ADE7920}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CDDEB099-C8D0-4B94-812E-618D2ADE7920}.Debug|x64.Build.0 = Debug|Any CPU
+		{CDDEB099-C8D0-4B94-812E-618D2ADE7920}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CDDEB099-C8D0-4B94-812E-618D2ADE7920}.Debug|x86.Build.0 = Debug|Any CPU
+		{CDDEB099-C8D0-4B94-812E-618D2ADE7920}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDDEB099-C8D0-4B94-812E-618D2ADE7920}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDDEB099-C8D0-4B94-812E-618D2ADE7920}.Release|x64.ActiveCfg = Release|Any CPU
+		{CDDEB099-C8D0-4B94-812E-618D2ADE7920}.Release|x64.Build.0 = Release|Any CPU
+		{CDDEB099-C8D0-4B94-812E-618D2ADE7920}.Release|x86.ActiveCfg = Release|Any CPU
+		{CDDEB099-C8D0-4B94-812E-618D2ADE7920}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
