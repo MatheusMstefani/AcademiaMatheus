@@ -16,7 +16,13 @@ public class DashboardListView : ContentPage
             var name = names[i]; var card = Ui.Button(name, "pin.png");
             card.HeightRequest = 110; card.FontSize = 22;
             card.SetBinding(Button.TextProperty, new Binding(name, stringFormat: name + "  •  {0}"));
-            card.Clicked += async (_, _) => { if (name == "Logradouros") await Shell.Current.GoToAsync("//logradouros"); else await DisplayAlertAsync(name, "Total consultado no banco atual. O cadastro desta área será desenvolvido nas próximas atividades.", "Entendi"); };
+            card.Clicked += async (_, _) =>
+            {
+                if (name == "Logradouros") await Shell.Current.GoToAsync("//logradouros");
+                else if (name == "Alunos") await Shell.Current.GoToAsync("//alunos");
+                else if (name == "Colaboradores") await Shell.Current.GoToAsync("//colaboradores");
+                else await DisplayAlertAsync("Matrículas", "Total consultado no banco atual. A tela de matrículas será desenvolvida na próxima etapa.", "Entendi");
+            };
             cards.Add(card, i % 2, i / 2);
         }
         Content = new ScrollView

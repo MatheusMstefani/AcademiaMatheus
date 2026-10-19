@@ -11,6 +11,8 @@ public class AppShell : Shell
         FlyoutHeader = new Image { Source = "academiadoze.png", HeightRequest = 140, Margin = 16 };
         Add("Painel", "home.png", "painel", () => new DashboardListView(services));
         Add("Logradouros", "pin.png", "logradouros", () => new LogradouroListView(services, config));
+        Add("Alunos", "person.png", "alunos", () => new AlunoListPage(services, config));
+        Add("Colaboradores", "team.png", "colaboradores", () => new ColaboradorListPage(services, config));
         Add("Configurações", "settings.png", "configuracoes", () => new ConfiguracoesView(services, config));
     }
     private void Add(string title, string icon, string route, Func<object> factory) =>

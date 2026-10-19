@@ -2,6 +2,25 @@
 
 Trabalho de Matheus Marques Stefani.
 
+## Continuação dev11
+
+CRUD de **Alunos e Colaboradores** na interface MAUI, com listagem, busca por CPF,
+edição, exclusão confirmada, foto e endereço vinculado a um logradouro existente.
+As datas usam conversão DateOnly/DateTime, a foto usa bytes no banco e ImageSource
+na tela, e os enums exibem seus nomes amigáveis. A quantidade de colunas da lista
+se adapta à largura da janela.
+
+As opções Galeria e Câmera são acionadas pelo usuário; se não houver câmera,
+use uma foto sua pela Galeria. A foto é limitada a 15 MB e não vai para o GitHub.
+Senhas não são devolvidas pela consulta; campos vazios na edição mantêm a senha.
+
+Validação desta etapa: compilação Windows, 235 testes de domínio, 70 de
+infraestrutura e 66 da aplicação (371 no total). Os novos testes verificam
+cadastro, busca por CPF, troca de foto, alteração do nome e exclusão com SQLite.
+Não substituem a gravação real da interface pedida pelo professor.
+
+Leia [o roteiro DEV11](docs/DEV11-entrega.md) e [o guia de estudo](docs/DEV11-estudo.md).
+
 ## Continuações dev09 e dev10
 
 Aplicativo **Academia Matheus**, em .NET MAUI para Windows, com identidade visual
@@ -14,8 +33,8 @@ própria e logo contendo o nome completo.
 - A apresentação referencia somente Application; recebe e envia DTOs.
 - SQLite é o banco executado nesta entrega. MySQL e SQL Server têm configuração
   e suporte no código, mas não foram validados com servidores nesta máquina.
-- Os botões Alunos, Colaboradores e Matrículas mostram totais e informam que as
-  respectivas telas de cadastro ficam para as próximas atividades.
+- Na DEV11, os botões Alunos e Colaboradores abrem seus cadastros. A interface
+  de Matrículas continua para a próxima etapa.
 
 Requisitos: Windows 10 1809 ou superior, SDK .NET 10 e workload MAUI Windows:
 
