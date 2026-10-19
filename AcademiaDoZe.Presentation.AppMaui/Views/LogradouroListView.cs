@@ -20,7 +20,13 @@ public class LogradouroListView : ContentPage
             var name = new Label { FontSize = 18, FontAttributes = FontAttributes.Bold }; name.SetBinding(Label.TextProperty, "Nome");
             var detail = new Label { FontSize = 14 }; detail.SetBinding(Label.TextProperty, new Binding("Cidade", stringFormat: "Cidade: {0}"));
             var cep = new Label { FontSize = 13 }; cep.SetBinding(Label.TextProperty, new Binding("Cep", stringFormat: "CEP: {0}"));
-            return new VerticalStackLayout { Padding = 12, Spacing = 4, Children = { name, detail, cep, new BoxView { HeightRequest = 1, Color = Color.FromArgb("#78909C") } } };
+            var edit = Ui.Button("Editar cadastro", "pin.png");
+            edit.Clicked += async (_, _) =>
+            {
+                if (edit.BindingContext is LogradouroDto item)
+                    await Navigation.PushAsync(new LogradouroView(services, config, item.Id));
+            };
+            return new VerticalStackLayout { Padding = 12, Spacing = 4, Children = { name, detail, cep, edit, new BoxView { HeightRequest = 1, Color = Color.FromArgb("#78909C") } } };
         });
         list.SelectionChanged += async (_, e) =>
         {

@@ -21,6 +21,8 @@ public partial class LogradouroListViewModel(AppServices services) : BaseViewMod
         Items.Clear();
         var items = await services.UseAsync<ILogradouroService, IEnumerable<LogradouroDto>>((s, ct) => s.ObterTodosAsync(ct));
         var query = Filtro.Trim();
+        if (Campo == "CEP" && query.Length > 0 && !query.Any(char.IsDigit))
+            throw new ArgumentException("Informe dígitos para buscar por CEP.");
         foreach (var item in items.Where(x => string.IsNullOrEmpty(query) || (Campo switch
         {
             "Id" => x.Id.ToString() == query,

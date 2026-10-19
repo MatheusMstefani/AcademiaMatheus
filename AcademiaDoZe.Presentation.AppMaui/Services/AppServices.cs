@@ -23,8 +23,8 @@ public sealed class AppServices(IServiceScopeFactory scopes, ConfigurationHelper
         if (ex is OperationCanceledException) return "O banco demorou para responder. Confira as configurações e tente novamente.";
         for (Exception? current = ex; current is not null; current = current.InnerException)
             if (current.Message.Contains("FOREIGN KEY", StringComparison.OrdinalIgnoreCase) || current.Message.Contains("REFERENCE constraint", StringComparison.OrdinalIgnoreCase))
-                return "Este logradouro está em uso por um aluno ou colaborador e não pode ser excluído.";
-        if (ex is ArgumentException || ex is InvalidOperationException) return ex.Message;
-        return "Não foi possível concluir. Confira a conexão, os campos e se o CEP já está cadastrado.";
+                return "Este cadastro possui registros vinculados e não pode ser excluído. Confira os vínculos antes de tentar novamente.";
+        if (ex is ArgumentException || ex is InvalidOperationException || ex is KeyNotFoundException) return ex.Message;
+        return "Não foi possível concluir. Confira a conexão e os campos; CPF, e-mail ou CEP duplicados também podem impedir a gravação.";
     }
 }
