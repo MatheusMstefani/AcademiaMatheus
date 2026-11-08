@@ -7,6 +7,11 @@ Sistema de gestão de academia desenvolvido em C# com .NET 10 e interface .NET M
 - Painel com logo e totais de logradouros, alunos, colaboradores e matrículas.
 - Cadastro, consulta, filtros, edição e exclusão de logradouros.
 - Cadastro, listagem, busca por CPF, edição e exclusão de alunos e colaboradores.
+- Cadastro, consulta, edição e exclusão de matrículas, com aluno vinculado pelo CPF.
+- Planos mensal, trimestral, semestral e anual, com término calculado automaticamente.
+- Seleção de múltiplas restrições de saúde e laudo médico anexado à matrícula.
+- Bloqueio de nova matrícula para aluno que já possui matrícula ativa.
+- Filtros de matrículas por Id, aluno, CPF, vigências ativas e vencimento em dias.
 - Seleção de foto pela galeria ou câmera, conforme disponibilidade do dispositivo.
 - Endereço vinculado a um logradouro cadastrado, com busca por CEP.
 - Datas de nascimento e admissão, tipo de colaborador e vínculo empregatício.
@@ -47,6 +52,6 @@ dotnet test AcademiaDoZe.Infrastructure.Tests
 dotnet test AcademiaDoZe.Application.Tests
 ```
 
-371 testes aprovados: 235 de domínio, 70 de infraestrutura e 66 da aplicação.
+386 testes aprovados: 235 de domínio, 70 de infraestrutura e 81 da aplicação.
 A compilação e os testes foram executados no Windows com SQLite. O suporte a
 MySQL e SQL Server está implementado; a execução nesses servidores ainda não foi validada.

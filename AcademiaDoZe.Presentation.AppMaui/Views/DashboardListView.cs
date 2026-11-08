@@ -21,7 +21,7 @@ public class DashboardListView : ContentPage
                 if (name == "Logradouros") await Shell.Current.GoToAsync("//logradouros");
                 else if (name == "Alunos") await Shell.Current.GoToAsync("//alunos");
                 else if (name == "Colaboradores") await Shell.Current.GoToAsync("//colaboradores");
-                else await DisplayAlertAsync("Matrículas", "Total consultado no banco atual. A tela de matrículas será desenvolvida na próxima etapa.", "Entendi");
+                else await Shell.Current.GoToAsync("//matriculas");
             };
             cards.Add(card, i % 2, i / 2);
         }

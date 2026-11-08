@@ -13,6 +13,7 @@ public class AppShell : Shell
         Add("Logradouros", "pin.png", "logradouros", () => new LogradouroListView(services, config));
         Add("Alunos", "person.png", "alunos", () => new AlunoListPage(services, config));
         Add("Colaboradores", "team.png", "colaboradores", () => new ColaboradorListPage(services, config));
+        Add("Matrículas", "matricula.png", "matriculas", () => new MatriculaListPage(services, config));
         Add("Configurações", "settings.png", "configuracoes", () => new ConfiguracoesView(services, config));
     }
     private void Add(string title, string icon, string route, Func<object> factory) =>

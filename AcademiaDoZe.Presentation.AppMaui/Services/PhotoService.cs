@@ -4,7 +4,7 @@ namespace AcademiaDoZe.Presentation.AppMaui.Services;
 
 public static class PhotoService
 {
-    public static async Task<ArquivoDto?> SelectAsync(bool camera)
+    public static async Task<ArquivoDto?> SelectAsync(bool camera, string title = "Selecione sua foto")
     {
         FileResult? file;
         if (camera)
@@ -14,7 +14,7 @@ public static class PhotoService
             file = await MediaPicker.Default.CapturePhotoAsync();
         }
         else file = await FilePicker.Default.PickAsync(new PickOptions
-        { PickerTitle = "Selecione sua foto", FileTypes = FilePickerFileType.Images });
+        { PickerTitle = title, FileTypes = FilePickerFileType.Images });
         if (file is null) return null;
         // Limite também durante a leitura: arquivos grandes não ocupam memória sem limite.
         using var input = await file.OpenReadAsync();

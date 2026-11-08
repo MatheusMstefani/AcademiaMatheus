@@ -87,8 +87,10 @@ public class MatriculaService : IMatriculaService
         if (dto.AlunoMatricula is null || dto.AlunoMatricula.Id != atual.AlunoId)
             throw new InvalidOperationException("Não é permitido trocar o aluno da matrícula.");
         var aluno = await BuscarAlunoAsync(atual.AlunoId, cancellationToken);
-        bool possuiLaudo = dto.LaudoMedico is null ? atual.LaudoMedico is not null :
-            dto.LaudoMedico.Conteudo is { Length: > 0 };
+        if (dto.RemoverLaudoMedico && dto.LaudoMedico is not null)
+            throw new ArgumentException("Escolha entre remover o laudo e anexar um novo arquivo.");
+        bool possuiLaudo = !dto.RemoverLaudoMedico && (dto.LaudoMedico is null ? atual.LaudoMedico is not null :
+            dto.LaudoMedico.Conteudo is { Length: > 0 });
         ValidarLaudo(dto, aluno, possuiLaudo);
         var entity = atual.UpdateFromDto(dto, aluno);
         var hoje = DateOnly.FromDateTime(DateTime.Today);

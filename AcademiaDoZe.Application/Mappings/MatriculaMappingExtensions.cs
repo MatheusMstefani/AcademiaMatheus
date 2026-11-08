@@ -37,7 +37,7 @@ public static class MatriculaMappingExtensions
         // Laudo nulo mantém o anterior. Um arquivo informado precisa ser válido.
         return Matricula.Criar(entity.Id, aluno, dto.Plano.ToDomain(), dto.DataInicio,
             dto.Objetivo, dto.RestricoesMedicas.ToDomain(),
-            dto.LaudoMedico is null ? entity.LaudoMedico : dto.LaudoMedico.ToArquivo(),
+            dto.RemoverLaudoMedico ? null : dto.LaudoMedico is null ? entity.LaudoMedico : dto.LaudoMedico.ToArquivo(),
             dto.ObservacoesRestricoes).ValueOrThrow();
     }
 }

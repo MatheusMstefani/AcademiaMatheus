@@ -14,4 +14,6 @@ public class MatriculaDto
     public required AppMatriculaRestricoes RestricoesMedicas { get; set; }
     public string? ObservacoesRestricoes { get; set; }
     public ArquivoDto? LaudoMedico { get; set; }
+    // Na edição, null mantém o arquivo atual; esta opção permite removê-lo explicitamente.
+    public bool RemoverLaudoMedico { get; set; }
 }
